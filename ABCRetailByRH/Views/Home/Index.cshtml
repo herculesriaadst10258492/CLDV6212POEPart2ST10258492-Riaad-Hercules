@@ -1,0 +1,53 @@
+﻿@model ABCRetailByRH.Models.HomeViewModel
+@using Microsoft.AspNetCore.Html
+@{
+    ViewData["Title"] = "Home";
+}
+<section class="hero text-center text-white py-5">
+    <div class="container py-5">
+        <h1 class="display-5 fw-bold">Timeless Pieces. Modern Craft.</h1>
+        <p class="lead text-secondary">Curated essentials with precision storage on Azure.</p>
+        <a class="btn btn-gold px-4 mt-2" asp-controller="Products" asp-action="Index">Shop Catalog</a>
+    </div>
+</section>
+
+<div class="container my-5">
+    <div class="card card-dark p-0">
+        @{
+            var viewAllUrl = Url.Action("Index", "Products");
+            IHtmlContent right = new HtmlString($"<a href=\"{viewAllUrl}\" class=\"btn btn-aysa\">View All</a>");
+        }
+        @await Html.PartialAsync("_SectionHeader", ("Featured Products", "Hand-picked items from the catalog", right))
+
+        <div class="p-4">
+            <div class="row g-4">
+                @if (Model.FeaturedProducts != null && Model.FeaturedProducts.Any())
+                {
+                    foreach (var p in Model.FeaturedProducts)
+                    {
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="card h-100">
+                                <div class="ratio ratio-4x3">
+                                    <img class="img-fluid rounded-top" alt="@p.Name"
+                                         src="@(string.IsNullOrWhiteSpace(p.ImageUrl) ? "https://dummyimage.com/800x600/222/fff.png&text=No+Image" : p.ImageUrl)">
+                                </div>
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title mb-1">@p.Name</h5>
+                                    <span class="badge badge-soft mb-3">In stock: @p.Stock</span>
+                                    <div class="mt-auto d-flex align-items-center justify-content-between">
+                                        <span class="fs-5 fw-semibold">R @p.Price.ToString("F2")</span>
+                                        <a class="btn btn-sm btn-gold" asp-controller="Products" asp-action="Details" asp-route-id="@p.RowKey">View</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="col-12"><div class="text-secondary">No products yet.</div></div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

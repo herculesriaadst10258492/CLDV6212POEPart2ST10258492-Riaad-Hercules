@@ -1,0 +1,46 @@
+﻿@model IEnumerable<ABCRetailByRH.Models.Product>
+@using Microsoft.AspNetCore.Html
+@{
+    ViewData["Title"] = "Products";
+    var addUrl = Url.Action("Create", "Products");
+    IHtmlContent right = new HtmlString($"<a href=\"{addUrl}\" class=\"btn btn-gold\">Add Product</a>");
+}
+<div class="container my-5">
+    <div class="card card-dark p-0">
+        @await Html.PartialAsync("_SectionHeader", ("Products", "Catalog from Azure Blob/Table Storage", right))
+
+        <div class="p-4">
+            <div class="row g-4">
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var p in Model)
+                    {
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="card h-100">
+                                <div class="ratio ratio-4x3">
+                                    <img class="img-fluid rounded-top" alt="@p.Name"
+                                         src="@(string.IsNullOrWhiteSpace(p.ImageUrl)
+                                                                        ? "https://dummyimage.com/800x600/222/fff.png&text=No+Image"
+                                                                        : p.ImageUrl)">
+                        </div>
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title mb-1">@p.Name</h5>
+                            <span class="text-secondary mb-2">Stock: @p.Stock</span>
+                            <div class="mt-auto d-flex gap-2">
+                                <a class="btn btn-sm btn-outline-light" asp-action="Details" asp-route-id="@p.RowKey">Details</a>
+                                <a class="btn btn-sm btn-outline-light" asp-action="Edit" asp-route-id="@p.RowKey">Edit</a>
+                                <a class="btn btn-sm btn-outline-light" asp-action="Delete" asp-route-id="@p.RowKey">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                }
+                }
+                else
+                {
+                    <div class="col-12"><div class="text-secondary">No products yet.</div></div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+﻿@model ABCRetailByRH.Models.Customer
+@{
+    ViewData["Title"] = "Delete Customer";
+}
+<div class="container my-5" style="max-width: 720px;">
+    <div class="card p-4">
+        <h2 class="h4 text-uppercase mb-3">Delete Customer</h2>
+        <p>Are you sure you want to remove <strong>@Model.Name</strong>?</p>
+        <dl class="row">
+            <dt class="col-sm-3">Email</dt>
+            <dd class="col-sm-9">@Model.Email</dd>
+            <dt class="col-sm-3">Phone</dt>
+            <dd class="col-sm-9">@Model.Phone</dd>
+        </dl>
+        <form asp-action="Delete" method="post">
+            <input type="hidden" name="partitionKey" value="@Model.PartitionKey" />
+            <input type="hidden" name="rowKey" value="@Model.RowKey" />
+            <button class="btn btn-outline-danger">Yes, delete</button>
+            <a class="btn btn-link" asp-action="Index">Cancel</a>
+        </form>
+    </div>
+</div>

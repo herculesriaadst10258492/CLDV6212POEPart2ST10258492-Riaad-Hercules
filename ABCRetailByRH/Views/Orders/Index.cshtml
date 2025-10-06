@@ -1,0 +1,180 @@
+﻿@model IEnumerable<ABCRetailByRH.ViewModels.OrderVm>
+@{
+    ViewData["Title"] = "Orders";
+}
+
+<style>
+    :root {
+        --bg: #0d0f12;
+        --panel: #151821;
+        --ink: #e8e8ea;
+        --muted: #a2a6b0;
+        --brand: #9d7df2;
+        --accent: #23d5ab;
+        --warn: #ffc857;
+        --ok: #3ddc97;
+        --ring: rgba(157,125,242,0.35);
+    }
+
+    body {
+        background: var(--bg);
+        color: var(--ink);
+    }
+
+    .card-dark {
+        background: linear-gradient(180deg, #161924 0%, #10131a 100%);
+        border: 1px solid rgba(255,255,255,0.06);
+        border-radius: 20px;
+        box-shadow: 0 0 0 1px rgba(255,255,255,0.03), 0 20px 50px rgba(0,0,0,0.5);
+    }
+
+        .card-dark .card-header {
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            background: transparent;
+            color: var(--ink);
+        }
+
+    .btn-aysa {
+        background: linear-gradient(90deg, var(--brand), var(--accent));
+        border: none;
+        color: #111;
+        font-weight: 600;
+        border-radius: 12px;
+        padding: 10px 16px;
+        box-shadow: 0 8px 28px var(--ring);
+    }
+
+        .btn-aysa:hover {
+            opacity: 0.95;
+            transform: translateY(-1px);
+        }
+
+    .table-darkfx {
+        color: var(--ink);
+    }
+
+        .table-darkfx thead th {
+            color: var(--muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .table-darkfx tbody td {
+            border-color: rgba(255,255,255,0.06) !important;
+        }
+
+    .status-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: .5rem;
+        padding: .35rem .7rem;
+        border-radius: 999px;
+        font-weight: 600;
+        font-size: .85rem;
+        letter-spacing: .02em;
+        border: 1px solid rgba(255,255,255,0.08);
+        box-shadow: 0 6px 24px rgba(0,0,0,.25);
+    }
+
+    .status-pending {
+        color: #231f10;
+        background: linear-gradient(180deg,#ffeaa7,#ffd86b);
+    }
+
+    .status-processed {
+        color: #0f231b;
+        background: linear-gradient(180deg,#a8ffdf,#58e6b9);
+    }
+
+    .small-muted {
+        color: var(--muted);
+        font-size: .9rem;
+    }
+
+    .hr-glow {
+        border: 0;
+        height: 1px;
+        background: linear-gradient(90deg,transparent,var(--ring),transparent);
+        margin: 0;
+    }
+</style>
+
+<div class="container py-4">
+    <div class="card-dark p-0">
+        <div class="card-header px-4 py-3 d-flex align-items-center justify-content-between">
+            <div>
+                <h2 class="m-0" style="font-weight:700;">Orders</h2>
+                <div class="small-muted">Live status: Pending ➜ Processed (queue-triggered)</div>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <a asp-action="Create" class="btn btn-aysa">Place New Order</a>
+                <button id="refreshBtn" class="btn btn-outline-light" style="border-radius:12px;">Refresh</button>
+            </div>
+        </div>
+        <hr class="hr-glow" />
+
+        @if (TempData["Msg"] is string msg)
+        {
+            <div class="px-4 pt-3">
+                <div class="alert alert-info mb-0" style="border-radius:12px;">@msg</div>
+            </div>
+        }
+
+        <div class="p-4">
+            <div class="table-responsive">
+                <table class="table table-darkfx align-middle">
+                    <thead>
+                        <tr>
+                            <th>Order Id</th>
+                            <th>Customer</th>
+                            <th class="text-end">Total</th>
+                            <th>Status</th>
+                            <th>Created (UTC)</th>
+                            <th>Processed (UTC)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var o in Model)
+                        {
+                            var isProcessed = (o.Status ?? "").Equals("processed", StringComparison.OrdinalIgnoreCase);
+                            var chipClass = isProcessed ? "status-chip status-processed" : "status-chip status-pending";
+                            <tr>
+                                <td class="small">@o.OrderId</td>
+                                <td>@o.Customer</td>
+                                <td class="text-end">@o.Total.ToString("F2")</td>
+                                <td><span class="@chipClass">@o.Status</span></td>
+                                <td>@(o.CreatedUtc?.ToString("yyyy-MM-dd HH:mm:ss") ?? "—")</td>
+                                <td>@(o.ProcessedUtc?.ToString("yyyy-MM-dd HH:mm:ss") ?? "—")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="d-flex align-items-center justify-content-end mt-3">
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" id="autoRefreshChk" checked>
+                    <label class="form-check-label small-muted" for="autoRefreshChk">Auto-refresh (5s)</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        (function(){
+            const btn = document.getElementById("refreshBtn");
+            const chk = document.getElementById("autoRefreshChk");
+            btn?.addEventListener("click", () => location.reload());
+
+            let timer = setInterval(() => { if (chk?.checked) location.reload(); }, 5000);
+            document.addEventListener("visibilitychange", () => {
+                if (document.hidden) { clearInterval(timer); }
+                else { timer = setInterval(() => { if (chk?.checked) location.reload(); }, 5000); }
+            });
+        })();
+    </script>
+}

@@ -1,0 +1,255 @@
+/* High-fashion dark aesthetic (monochrome, minimal) */
+:root {
+    --bg: #0a0a0a;
+    --panel: #111214;
+    --soft: #151618;
+    --ink: #e8e8e8;
+    --muted: #b7b7b7;
+    --border: #232427;
+    --accent: #eaeaea; /* off-white accent */
+    --accent-ink: #0a0a0a;
+    --focus: rgba(234,234,234,.25);
+}
+
+html, body {
+    height: 100%
+}
+
+body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+    letter-spacing: .2px;
+    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+}
+
+/* Containers / Typography */
+.container {
+    max-width: 1100px
+}
+
+h1, h2, h3 {
+    font-weight: 600;
+    letter-spacing: .05em
+}
+
+a {
+    color: var(--accent);
+    text-decoration: none
+}
+
+    a:hover {
+        opacity: .9
+    }
+
+/* Navbar */
+.navbar {
+    background: var(--panel) !important;
+    border-bottom: 1px solid var(--border)
+}
+
+    .navbar .nav-link {
+        color: var(--ink) !important;
+        text-transform: uppercase;
+        letter-spacing: .08em;
+        font-size: .9rem
+    }
+
+.brand {
+    letter-spacing: .12em;
+    font-weight: 700
+}
+
+/* Buttons */
+.btn {
+    border-radius: 0;
+    letter-spacing: .05em
+}
+
+    .btn:focus, .form-control:focus {
+        box-shadow: 0 0 0 .25rem var(--focus)
+    }
+
+.btn-outline-light {
+    border-color: var(--accent);
+    color: var(--accent)
+}
+
+    .btn-outline-light:hover {
+        background: var(--accent);
+        color: var(--accent-ink)
+    }
+
+.btn-primary {
+    background: #191a1c;
+    border-color: #191a1c
+}
+
+    .btn-primary:hover {
+        background: #222428;
+        border-color: #222428
+    }
+
+.btn-secondary {
+    background: #1c1d20;
+    border-color: #1c1d20;
+    color: var(--ink)
+}
+
+.btn-danger {
+    background: #ff4d4f;
+    border-color: #ff4d4f
+}
+
+.btn-gold { /* keep class name used in views; styled monochrome */
+    background: var(--accent);
+    color: var(--accent-ink);
+    border: 0;
+    font-weight: 600;
+}
+
+    .btn-gold:hover {
+        filter: brightness(1.05)
+    }
+
+/* Forms */
+.form-control, input, select, textarea {
+    background: var(--soft);
+    color: var(--ink);
+    border: 1px solid var(--border)
+}
+
+/* Tables */
+.table {
+    color: var(--ink);
+    background: var(--soft)
+}
+
+    .table thead {
+        background: var(--panel)
+    }
+
+    .table td, .table th {
+        border-color: var(--border) !important
+    }
+
+/* Cards */
+.card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+
+    .card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 24px rgba(0,0,0,.35);
+        border-color: #2c2d31;
+    }
+
+.card-title {
+    letter-spacing: .06em;
+    text-transform: uppercase
+}
+
+/* Media / imagery */
+.ratio {
+    background: var(--soft)
+}
+
+img {
+    object-fit: cover
+}
+
+/* Badges */
+.badge-soft {
+    background: rgba(255,255,255,.06);
+    color: var(--ink);
+    border: 1px solid rgba(255,255,255,.16);
+}
+
+/* Hero */
+.hero {
+    background: linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,.9)), url('https://images.unsplash.com/photo-1520975922203-b23988b6b8cd?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
+    border-bottom: 1px solid var(--border);
+}
+
+/* Footer */
+.site-footer {
+    border-top: 1px solid var(--border);
+    color: var(--muted)
+}
+
+/* Small utilities */
+.text-secondary {
+    color: var(--muted) !important
+}
+
+/* ==== Shared header & subtle glow divider ==== */
+.subtitle-muted {
+    color: var(--muted);
+    font-size: .92rem;
+}
+
+.hr-glow {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(234,234,234,.25), transparent);
+    margin: 0;
+}
+
+/* optional gradient panel variant used on Orders (keeps your palette) */
+.card-dark {
+    background: linear-gradient(180deg, #151618 0%, #101113 100%);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    box-shadow: 0 0 0 1px rgba(255,255,255,.03), 0 20px 50px rgba(0,0,0,.5);
+}
+
+/* Orders status chips & utilities centralized so all pages can use them */
+.badge-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .35rem .7rem;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: .85rem;
+    letter-spacing: .02em;
+    border: 1px solid rgba(255,255,255,.12);
+    box-shadow: 0 6px 24px rgba(0,0,0,.25);
+}
+
+    .badge-chip.is-pending {
+        color: #231f10;
+        background: linear-gradient(180deg,#ffeaa7,#ffd86b);
+    }
+
+    .badge-chip.is-processed {
+        color: #0f231b;
+        background: linear-gradient(180deg,#a8ffdf,#58e6b9);
+    }
+
+/* Inputs used on Create pages */
+.input-dark, .input-dark:focus {
+    background: #0f1113;
+    border-color: rgba(255,255,255,.12);
+    color: var(--ink);
+}
+
+/* Orders’ primary button name but styled to your brand */
+.btn-aysa {
+    background: var(--accent);
+    color: var(--accent-ink);
+    border: 0;
+    font-weight: 600;
+    border-radius: 12px;
+    padding: 10px 16px;
+    box-shadow: 0 8px 28px rgba(234,234,234,.15);
+}
+
+    .btn-aysa:hover {
+        filter: brightness(1.05);
+        transform: translateY(-1px);
+    }

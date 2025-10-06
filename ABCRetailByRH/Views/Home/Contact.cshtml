@@ -1,0 +1,97 @@
+﻿@using Microsoft.AspNetCore.Html
+@{
+    ViewData["Title"] = "Contact Us";
+}
+
+<div class="container my-5" style="max-width: 1200px;">
+    <div class="card card-dark p-0">
+        @await Html.PartialAsync("_SectionHeader",
+        ("Contact Us", "We’re here to help — phone, email, or the enquiry form.", (IHtmlContent?)null))
+
+        <div class="p-4">
+            <div class="row g-4 align-items-stretch">
+                <!-- Contact details -->
+                <div class="col-12 col-xl-4">
+                    <div class="card card-dark h-100">
+                        <div class="card-body">
+                            <h5 class="mb-3">Contact Details</h5>
+                            <ul class="list-unstyled mb-4">
+                                <li class="mb-2">
+                                    <strong>Address:</strong><br />
+                                    144 Peter Rd, Ruimsig, Roodepoort, 1724, South Africa
+                                </li>
+                                <li class="mb-2">
+                                    <strong>Email:</strong>
+                                    <a href="mailto:abcretailbyrh@icloud.com">abcretailbyrh@icloud.com</a>
+                                </li>
+                                <li class="mb-0">
+                                    <strong>Phone:</strong>
+                                    <a href="tel:+27836251849">083&nbsp;625&nbsp;1849</a>
+                                </li>
+                            </ul>
+
+                            <h6 class="mb-2">Operational Hours</h6>
+                            <ul class="list-unstyled mb-0">
+                                <li>Monday – Friday: 08:00 – 17:00</li>
+                                <li>Saturday: 09:00 – 13:00</li>
+                                <li>Sunday &amp; Public Holidays: Closed</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Enquiry form (Google Forms embed) -->
+                <div class="col-12 col-xl-8">
+                    <div class="card card-dark h-100">
+                        <div class="card-body">
+                            <h5 class="mb-3">Send Us an Enquiry</h5>
+
+                            <div class="rounded-4 overflow-hidden shadow-sm" style="height:min(80vh,680px);">
+                                <iframe class="w-100 h-100 border-0 d-block"
+                                        src="https://docs.google.com/forms/d/e/1FAIpQLSeG3QWYaOTk2Z1WihPamKP-xtkAGPvO_kf5Zz-0y1Tkftopfg/viewform?embedded=true"
+                                        loading="lazy"
+                                        referrerpolicy="no-referrer-when-downgrade"
+                                        title="Enquiry form">
+                                </iframe>
+                            </div>
+
+                            <small class="d-block mt-2 text-secondary">
+                                If the form doesn’t load,
+                                <a href="https://docs.google.com/forms/d/e/1FAIpQLSeG3QWYaOTk2Z1WihPamKP-xtkAGPvO_kf5Zz-0y1Tkftopfg/viewform" target="_blank" rel="noopener">
+                                    open it in a new tab
+                                </a>.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Map -->
+            <div class="row g-4 mt-1">
+                <div class="col-12">
+                    <div class="card card-dark">
+                        <div class="card-body">
+                            <h5 class="mb-3">Find Us</h5>
+                            <div class="rounded-4 overflow-hidden shadow-sm" style="height:min(70vh,600px);">
+                                <iframe class="w-100 h-100 border-0 d-block"
+                                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3583.331894694291!2d27.8685564751317!3d-26.08808245925429!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e959ef3e4136a4b%3A0xa02690b870829d94!2s144%20Peter%20Rd%2C%20Ruimsig%2C%20Roodepoort%2C%201724!5e0!3m2!1sen!2sza!4v1758111504483!5m2!1sen!2sza"
+                                        loading="lazy"
+                                        referrerpolicy="no-referrer-when-downgrade"
+                                        title="Map to our address">
+                                </iframe>
+                            </div>
+
+                            <small class="d-block mt-2">
+                                Open in Maps:
+                                <a href="https://www.google.com/maps/place/144+Peter+Rd,+Ruimsig,+Roodepoort,+1724" target="_blank" rel="noopener">
+                                    144 Peter Rd, Ruimsig, Roodepoort, 1724
+                                </a>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

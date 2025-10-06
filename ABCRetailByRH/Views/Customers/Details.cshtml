@@ -1,0 +1,26 @@
+﻿@model ABCRetailByRH.Models.Customer
+@{
+    ViewData["Title"] = "Customer";
+}
+<div class="container my-5" style="max-width: 720px;">
+    <div class="card p-4">
+        <h2 class="h4 text-uppercase mb-3">@Model.Name</h2>
+        <dl class="row">
+            <dt class="col-sm-3">Email</dt>
+            <dd class="col-sm-9">@Model.Email</dd>
+            <dt class="col-sm-3">Phone</dt>
+            <dd class="col-sm-9">@Model.Phone</dd>
+            <dt class="col-sm-3">RowKey</dt>
+            <dd class="col-sm-9">@Model.RowKey</dd>
+        </dl>
+        <a class="btn btn-gold"
+           asp-action="Edit"
+           asp-route-partition="@Model.PartitionKey"
+           asp-route-id="@Model.RowKey">Edit</a>
+        <a class="btn btn-outline-danger"
+           asp-action="Delete"
+           asp-route-partition="@Model.PartitionKey"
+           asp-route-id="@Model.RowKey">Delete</a>
+        <a class="btn btn-link" asp-action="Index">Back</a>
+    </div>
+</div>

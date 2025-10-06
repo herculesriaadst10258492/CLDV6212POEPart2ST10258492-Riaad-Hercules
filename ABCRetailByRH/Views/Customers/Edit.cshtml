@@ -1,0 +1,33 @@
+﻿@model ABCRetailByRH.Models.Customer
+@{
+    ViewData["Title"] = "Edit Customer";
+}
+<div class="container my-5" style="max-width: 720px;">
+    <div class="card p-4">
+        <h2 class="h4 text-uppercase mb-3">Edit Customer</h2>
+        <form asp-action="Edit" method="post">
+            <input type="hidden" asp-for="PartitionKey" />
+            <input type="hidden" asp-for="RowKey" />
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Phone" class="form-label"></label>
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+            <button class="btn btn-gold">Save Changes</button>
+            <a class="btn btn-link" asp-action="Index">Back</a>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

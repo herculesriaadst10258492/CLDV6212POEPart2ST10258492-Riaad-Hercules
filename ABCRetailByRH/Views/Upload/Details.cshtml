@@ -1,0 +1,37 @@
+﻿@model List<string>
+@{
+    ViewData["Title"] = "Upload Contracts";
+}
+<h2>Upload Contracts (Azure File Share)</h2>
+
+@if (ViewBag.Message != null)
+{
+     <div class="alert alert-info">@ViewBag.Message</div>
+}
+
+<form asp-action="Index" method="post" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+    <input type="file" name="file" class="form-control" required />
+    <button class="btn btn-primary mt-2" type="submit">Upload</button>
+</form>
+
+<table class="table mt-3">
+    <thead><tr><th>File Name</th><th>Actions</th></tr></thead>
+    <tbody>
+        @foreach (var f in Model)
+        {
+            <tr>
+                <td>@f</td>
+                <td>
+                    <a class="btn btn-sm btn-outline-light" asp-action="Details" asp-route-name="@f">Details</a>
+                    <a class="btn btn-sm btn-outline-secondary" asp-action="Download" asp-route-name="@f">Download</a>
+                    <form asp-action="Delete" method="post" class="d-inline">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="name" value="@f" />
+                        <button class="btn btn-sm btn-outline-danger" type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

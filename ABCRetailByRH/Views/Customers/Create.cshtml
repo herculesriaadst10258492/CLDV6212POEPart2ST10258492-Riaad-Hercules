@@ -1,0 +1,39 @@
+﻿@model ABCRetailByRH.Models.Customer
+@using Microsoft.AspNetCore.Html
+@{
+    ViewData["Title"] = "Create Customer";
+}
+<div class="container my-5" style="max-width: 820px;">
+    <div class="card card-dark p-0">
+        @{
+            var backUrl = Url.Action("Index", "Customers");
+            IHtmlContent right = new HtmlString($"<a href=\"{backUrl}\" class=\"btn btn-outline-light\">Back</a>");
+        }
+        @await Html.PartialAsync("_SectionHeader", ("Create Customer", "Add a new customer record", right))
+
+        <div class="p-4">
+            <form asp-action="Create" method="post">
+                <div class="mb-3">
+                    <label asp-for="Name" class="form-label"></label>
+                    <input asp-for="Name" class="form-control input-dark" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Email" class="form-label"></label>
+                    <input asp-for="Email" class="form-control input-dark" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="mb-4">
+                    <label asp-for="Phone" class="form-label"></label>
+                    <input asp-for="Phone" class="form-control input-dark" />
+                    <span asp-validation-for="Phone" class="text-danger"></span>
+                </div>
+                <button class="btn btn-gold">Save</button>
+                <a class="btn btn-link" asp-action="Index">Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

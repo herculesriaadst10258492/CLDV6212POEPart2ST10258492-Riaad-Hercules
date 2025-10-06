@@ -1,0 +1,35 @@
+# Visual Studio / build
+.vs/
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build & publish artifacts
+*.zip
+*.tgz
+*.nupkg
+*.pubxml
+*.publishsettings
+*.pfx
+**/Properties/PublishProfiles/
+
+# Node
+node_modules/
+
+# Secrets (never commit real dev settings)
+**/appsettings.Development.json
+**/local.settings.json
+secrets.json
+
+# --- Secrets (do not commit) ---
+**/appsettings.json
+**/appsettings.Development.json
+**/local.settings.json
+
+# Secrets (do not commit)
+**/appsettings.json
+**/appsettings.Development.json
+**/local.settings.json

@@ -1,0 +1,14 @@
+{
+
+}
+{
+    "IsEncrypted": false,
+    "Values": {
+        "AzureWebJobsStorage": "CHANGEME__StorageConnectionString",
+        "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
+
+        "OrdersQueueName": "orders",
+        "OrdersFinalizeQueueName": "orders-finalize",
+        "OrdersTableName": "Orders"
+    }
+}

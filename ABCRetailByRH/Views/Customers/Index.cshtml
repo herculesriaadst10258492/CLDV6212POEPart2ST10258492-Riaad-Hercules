@@ -1,0 +1,61 @@
+﻿@model IEnumerable<ABCRetailByRH.Models.Customer>
+@using Microsoft.AspNetCore.Html
+@{
+    ViewData["Title"] = "Customers";
+}
+<div class="container my-5">
+    <div class="card card-dark p-0">
+        @{
+            var createUrl = Url.Action("Create", "Customers");
+            IHtmlContent right = new HtmlString($"<a href=\"{createUrl}\" class=\"btn btn-gold\">Add Customer</a>");
+        }
+        @await Html.PartialAsync("_SectionHeader",
+        ("Customers", "Manage customer records in Azure Table Storage", right))
+
+        <div class="p-4">
+            <div class="table-responsive">
+                <table class="table table-dark table-hover align-middle mb-0">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Any())
+                        {
+                            foreach (var c in Model)
+                            {
+                                <tr>
+                                    <td>@c.Name</td>
+                                    <td>@c.Email</td>
+                                    <td>@c.Phone</td>
+                                    <td class="text-end">
+                                        <a class="btn btn-sm btn-outline-light"
+                                           asp-action="Details"
+                                           asp-route-partition="@c.PartitionKey"
+                                           asp-route-id="@c.RowKey">Details</a>
+                                        <a class="btn btn-sm btn-outline-light"
+                                           asp-action="Edit"
+                                           asp-route-partition="@c.PartitionKey"
+                                           asp-route-id="@c.RowKey">Edit</a>
+                                        <a class="btn btn-sm btn-outline-danger"
+                                           asp-action="Delete"
+                                           asp-route-partition="@c.PartitionKey"
+                                           asp-route-id="@c.RowKey">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr><td colspan="4" class="text-secondary">No customers yet.</td></tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
